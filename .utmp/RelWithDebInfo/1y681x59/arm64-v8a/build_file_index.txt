@@ -1,0 +1,2 @@
+C:\Users\spike\Documents\Goldsmiths\Augmented Realities\Augmented Reality\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\spike\Documents\Goldsmiths\Augmented Realities\Augmented Reality\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
