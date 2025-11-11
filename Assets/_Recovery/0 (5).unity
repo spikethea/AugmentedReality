@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 22707730}
   - component: {fileID: 22707732}
   - component: {fileID: 22707731}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sparkle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,8 +371,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.539, y: -0.283, z: -0.2909999}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 826478957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eea55f09d34e94f8e4063548034773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  PulseLength: 1
+  PulseLength: 5
   PulseAmount: 0
   spriteRenderer: {fileID: 22707732}
 --- !u!212 &22707732
@@ -1003,14 +1003,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4e5b10345335a45892f92d0e9d1761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  controllerUILeft: {fileID: 1507404100}
-  controllerUIRight: {fileID: 354135388}
+  ControllerUILeft: {fileID: 0}
+  Player: {fileID: 589501538}
   RelocateButton: 67108864
-  sparkleEffect: {fileID: 826478955}
-  frameMesh: {fileID: 623474725}
-  glassMesh: {fileID: 1711813854900124419}
-  portalMesh: {fileID: 1717057028}
-  brokenGlassEffect: {fileID: 589501538}
+  frameObject: {fileID: 589501538}
   MinFrameHeight: 1.5
   MaxFrameHeight: 3
   MaxDistance: 10
@@ -3793,8 +3789,8 @@ GameObject:
   - component: {fileID: 354135387}
   - component: {fileID: 354135389}
   - component: {fileID: 354135388}
-  m_Layer: 5
-  m_Name: TextRight
+  m_Layer: 0
+  m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5400,7 +5396,6 @@ Transform:
   - {fileID: 1873550692}
   - {fileID: 2085656306}
   - {fileID: 543450651757510764}
-  - {fileID: 826478957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &589501536
@@ -5438,24 +5433,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BrokenGlassEffect
   SolidGlass: {fileID: 919132147749903062}
   BrokenGlass: {fileID: 1873550691}
+  stencillWorld: {fileID: 0}
   FogEffect: {fileID: 2085656308}
-  sparkles: {fileID: 826478955}
   SmashedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-        m_MethodName: 
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  glassSound: {fileID: 8300000, guid: bf30d246288bb5a40830fad7b4818f7b, type: 3}
+      m_Calls: []
+  glassSound: {fileID: 0}
 --- !u!1 &593600665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5741,7 +5724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c48204e6d141ba0489fe274c3518e45d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c48204e6d141ba0489fe274c3518e45d, type: 3}
       propertyPath: m_Name
@@ -5759,11 +5742,6 @@ PrefabInstance:
 --- !u!4 &623474724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c48204e6d141ba0489fe274c3518e45d, type: 3}
-  m_PrefabInstance: {fileID: 623474723}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &623474725 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: c48204e6d141ba0489fe274c3518e45d, type: 3}
   m_PrefabInstance: {fileID: 623474723}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &630698546
@@ -7048,13 +7026,13 @@ GameObject:
   m_Component:
   - component: {fileID: 826478957}
   - component: {fileID: 826478956}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: SparkleParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!227 &826478956
 BillboardRenderer:
   m_ObjectHideFlags: 0
@@ -7111,15 +7089,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826478955}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 0.35000002, z: -0.07800007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.193, y: 1.441, z: 3.372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1326220594}
   - {fileID: 22707730}
   - {fileID: 1614589832}
-  m_Father: {fileID: 589501535}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829650898
 GameObject:
@@ -7413,7 +7391,7 @@ GameObject:
   - component: {fileID: 861808746}
   - component: {fileID: 861808745}
   - component: {fileID: 861808744}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: '[BuildingBlock] Effect Mesh'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8622,8 +8600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlatformEmerge
   Podium: {fileID: 803951375}
   ChewingGum: {fileID: 325455024}
-  ControllerUILeft: {fileID: 1507404100}
-  EmergeButton: 256
+  ControllerUILeft: {fileID: 0}
+  EmergeButton: 536870912
   PlatformRiseCurve:
     serializedVersion: 2
     m_Curve:
@@ -9039,7 +9017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1198468712}
   - component: {fileID: 1198468711}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ControllerUILeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9845,7 +9823,7 @@ GameObject:
   - component: {fileID: 1326220594}
   - component: {fileID: 1326220595}
   - component: {fileID: 1326220596}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9862,8 +9840,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.23414001, y: -0.72104996, z: 0.028000116}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 826478957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11342,8 +11320,8 @@ GameObject:
   - component: {fileID: 1507404102}
   - component: {fileID: 1507404101}
   - component: {fileID: 1507404100}
-  m_Layer: 5
-  m_Name: TextLeft
+  m_Layer: 0
+  m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11369,8 +11347,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Press the <mark=#0000ff padding=\u201C10, 10, 0, 0\u201D> <color=\"black\"><b>
-    X Button</b></color></mark> to Display Throwable"
+  m_text: "Press the <mark=#00ff00 padding=\u201C10, 10, 0, 0\u201D> <color=\"black\"><b>
+    A Button</b></color></mark> to Display Throwable"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11902,7 +11880,7 @@ GameObject:
   - component: {fileID: 1553001478}
   - component: {fileID: 1553001477}
   - component: {fileID: 1553001476}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: '[BuildingBlock] MR Utility Kit'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12114,7 +12092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564225338}
   - component: {fileID: 1564225337}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ControllerUIRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12440,7 +12418,7 @@ GameObject:
   - component: {fileID: 1614589832}
   - component: {fileID: 1614589833}
   - component: {fileID: 1614589834}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sparkle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12457,8 +12435,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 826478957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12532,7 +12510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46eea55f09d34e94f8e4063548034773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PulsingSprite
-  PulseLength: 0.53
+  PulseLength: 2
   PulseAmount: 0.1
   spriteRenderer: {fileID: 1614589833}
 --- !u!1 &1630798606
@@ -13290,7 +13268,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717057026}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -17104,7 +17082,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147749903062}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -17170,3 +17148,4 @@ SceneRoots:
   - {fileID: 1289925183}
   - {fileID: 1198468712}
   - {fileID: 1564225338}
+  - {fileID: 826478957}

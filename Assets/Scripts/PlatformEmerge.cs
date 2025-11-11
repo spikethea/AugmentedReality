@@ -1,12 +1,15 @@
 using System.Collections;
-using Oculus.Interaction;
+using TMPro;
 using UnityEngine;
 
 public class PlatformEmerge : MonoBehaviour
 {
     public GameObject Podium;
-    public OVRInput.RawButton EmergeButton;
     public GameObject ChewingGum;
+    public TextMeshPro ControllerUILeft;
+
+    public OVRInput.RawButton EmergeButton;
+    
 
     [SerializeField] AnimationCurve PlatformRiseCurve;
     private Vector3 targetPosition;
@@ -28,6 +31,7 @@ public class PlatformEmerge : MonoBehaviour
 
             Podium.SetActive(true);
             ChewingGum.SetActive(true);
+            ControllerUILeft.text = "Throw with <font=LiberationSans SDF><mark=#ffffff padding=“10, 10, 0, 0”><b>Left Grip </b></mark></font>";
 
             targetPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
             transform.position = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);

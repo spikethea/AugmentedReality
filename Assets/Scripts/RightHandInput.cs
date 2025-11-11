@@ -1,4 +1,5 @@
 using System.Net;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,12 +7,17 @@ using UnityEngine.EventSystems;
 
 public class RightHandInput : MonoBehaviour
 {
-    public BrokenGlassEffect Player;
-    //public OVRInput.RawButton ShootButton;
+    // VR Controller variables
+    public TextMeshPro controllerUILeft;
+    public TextMeshPro controllerUIRight;
     public OVRInput.RawButton RelocateButton;
 
     // Window frame variables
-    public BrokenGlassEffect frameObject;
+    public GameObject sparkleEffect;
+    public MeshRenderer frameMesh;
+    public MeshRenderer glassMesh;
+    public MeshRenderer portalMesh;
+    public BrokenGlassEffect brokenGlassEffect;
     private bool FrameisSet = false;
     [SerializeField] float MinFrameHeight;
     [SerializeField] float MaxFrameHeight;
@@ -30,12 +36,13 @@ public class RightHandInput : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-        Player.SmashedEvent.AddListener(DisableWindow);
+
+        brokenGlassEffect.SmashedEvent.AddListener(DisableWindow);
     }
 
     public void DisableWindow() {
         isSmashed = true;
+        controllerUILeft.enabled = false;
     }
 
     // Update is called once per frame
@@ -59,13 +66,15 @@ public class RightHandInput : MonoBehaviour
                     endPoint = hit.point;
                     line.SetPosition(1, endPoint);
                     Destroy(line.gameObject, lineShowTimer);
-                    MoveFrame(hit, frameObject);
+                    MoveFrame(hit, brokenGlassEffect);
             }
 
             if (OVRInput.GetUp(RelocateButton) && !isSmashed)
             {
-                
+                if (controllerUIRight.enabled)
+                    controllerUIRight.enabled = false;
                 FrameisSet = true;
+                sparkleEffect.SetActive(true);
             }
 
             if (FrameisSet)
@@ -89,14 +98,14 @@ public class RightHandInput : MonoBehaviour
 
     void AdjustFramePlacement()
     {
-        if (frameObject.transform.position.y < MinFrameHeight)
+        if (brokenGlassEffect.transform.position.y < MinFrameHeight)
         {
-            frameObject.transform.position = new Vector3(frameObject.transform.position.x, MinFrameHeight, frameObject.transform.position.z);
+            brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MinFrameHeight, brokenGlassEffect.transform.position.z);
         }
 
-        if (frameObject.transform.position.y > MaxFrameHeight)
+        if (brokenGlassEffect.transform.position.y > MaxFrameHeight)
         {
-            frameObject.transform.position = new Vector3(frameObject.transform.position.x, MaxFrameHeight, frameObject.transform.position.z);
+            brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MaxFrameHeight, brokenGlassEffect.transform.position.z);
         }
     }
 
@@ -108,18 +117,22 @@ public class RightHandInput : MonoBehaviour
             if (FrameisSet) return;
             if (ImpactRotation.eulerAngles.x < -75 || ImpactRotation.eulerAngles.x > 80) return;
 
-            
-            // Move the frame
-            frameObject.transform.position = hit.point;
+        if (frameMesh.enabled == false) {
+            frameMesh.enabled = true;
+            glassMesh.enabled = true;
+            portalMesh.enabled = true;
+        }
+        // Move the frame
+        brokenGlassEffect.transform.position = hit.point;
 
 
             Debug.Log("Moved frame to: " + hit.point);
 
-            
 
-        
-            // Adjust the Rotation to to be parallel to the wall
-            frameObject.transform.rotation = ImpactRotation;
+
+
+        // Adjust the Rotation to to be parallel to the wall
+        brokenGlassEffect.transform.rotation = ImpactRotation;
             Debug.Log("Rotated frame to: " + ImpactRotation.eulerAngles);
 
         //}

@@ -5,9 +5,13 @@ public class BrokenGlassEffect : MonoBehaviour
 {
     public GameObject SolidGlass;
     public GameObject BrokenGlass;
-    public GameObject stencillWorld;
+    AudioSource audioSource;
+
     public ParticleSystem FogEffect;
+    public GameObject sparkles;
     public UnityEvent SmashedEvent;
+
+    public AudioClip glassSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,8 +30,10 @@ public class BrokenGlassEffect : MonoBehaviour
         {
             SolidGlass.SetActive(false);
             BrokenGlass.SetActive(true);
+            //audioSource.PlayOneShot(glassSound, 1.0f);
             Destroy(BrokenGlass, 2.5f);
             SmashedEvent.Invoke();
+            sparkles.SetActive(false);
             FogEffect.Play();
 
         }
