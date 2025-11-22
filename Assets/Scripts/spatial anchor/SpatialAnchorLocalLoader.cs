@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Meta.XR.BuildingBlocks;
+using SpatialAnchor2;
 
 namespace SpatialAnchor2
 {
