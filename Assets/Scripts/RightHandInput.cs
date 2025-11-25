@@ -1,4 +1,5 @@
 using System.Net;
+using Oculus.Interaction.Input;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,16 @@ public class RightHandInput : MonoBehaviour
     public TextMeshPro controllerUILeft;
     public TextMeshPro controllerUIRight;
     public OVRInput.RawButton RelocateButton;
+    // VR Hand Variables
+    public OVRHand rightHand;
+    public Hand hand;
+    private bool isPointing = false;
+    private Pose currentPose;
+    private HandJointId handJointId = HandJointId.HandIndexTip; // TO DO: Change this to your bone.
+
+    // Buzz sound
+    public AudioSource buzzSound;
+    public Transform rightHandFingertip;
 
     // Window frame variables
     public GameObject sparkleEffect;
@@ -45,20 +56,28 @@ public class RightHandInput : MonoBehaviour
         controllerUILeft.enabled = false;
     }
 
+    public void Pointing(bool value)
+    {
+        Debug.Log("Pointing " + value);
+        isPointing = value;
+        return;
+    }
+
+ 
     // Update is called once per frame
     void Update()
     {
+        hand.GetJointPose(handJointId, out currentPose);
         
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(FirePoint.position, FirePoint.forward, out hit, MaxDistance, LayerMask);
+            bool hasHit = Physics.Raycast(currentPose.position, currentPose.forward, out hit, MaxDistance, LayerMask);
 
             Vector3 endPoint = Vector3.zero;
 
 
             if (hasHit)
             {
-                if (OVRInput.Get(RelocateButton) && !FrameisSet && !isSmashed)
-                {
+                if (isPointing) {
                     LineRenderer line = Instantiate(linePrefab);
                     line.positionCount = 2;
                     line.SetPosition(0, FirePoint.position);
@@ -66,16 +85,36 @@ public class RightHandInput : MonoBehaviour
                     endPoint = hit.point;
                     line.SetPosition(1, endPoint);
                     Destroy(line.gameObject, lineShowTimer);
-                    MoveFrame(hit, brokenGlassEffect);
-            }
 
-            if (OVRInput.GetUp(RelocateButton) && !isSmashed)
-            {
-                if (controllerUIRight.enabled)
-                    controllerUIRight.enabled = false;
-                FrameisSet = true;
-                sparkleEffect.SetActive(true);
+                    if (!FrameisSet && !isSmashed)
+                    {
+
+                        MoveFrame(hit, brokenGlassEffect);
+                    }
+
+                    if (!isSmashed)
+                    {
+                        if (controllerUIRight.enabled)
+                            controllerUIRight.enabled = false;
+                        FrameisSet = true;
+                        sparkleEffect.SetActive(true);
+                    }
+
+                // Play buzz sound
+                if (!buzzSound.isPlaying) {
+                            buzzSound.Play();
+                        }
+
+                    } else {
+                        if (buzzSound.isPlaying) {
+                            buzzSound.Stop();
+                    }
+                // Smashable objects
+                if (hit.transform.CompareTag("Smashable")) {
+                    hit.transform.GetComponent<Smashable>().Collapse();
+                }
             }
+            
 
             if (FrameisSet)
             {
