@@ -8,8 +8,9 @@ public class PlatformEmerge : MonoBehaviour
     public GameObject ChewingGum;
     public TextMeshPro ControllerUILeft;
 
-    public OVRInput.RawButton EmergeButton;
-    
+    public HeadUI HeadUICanvas;
+    public bool isThumbsUp = false;
+
 
     [SerializeField] AnimationCurve PlatformRiseCurve;
     private Vector3 targetPosition;
@@ -21,17 +22,28 @@ public class PlatformEmerge : MonoBehaviour
     {
 
     }
+
+    public void ThumbsUp(bool value)
+    {
+        Debug.Log("Hand thumbs up detected.");
+        isThumbsUp = value;
+        if (isThumbsUp && !HeadUICanvas.enabled) {
+            HeadUICanvas.hideHeadCanvas();
+        }
+        return;
+    }
+
     // Update is called once per frame
     void Update()
     {
         
-        if (OVRInput.GetDown(EmergeButton) && !isEmerged)
+        if (isThumbsUp && !isEmerged)
         {
             isEmerged = true;
 
             Podium.SetActive(true);
             ChewingGum.SetActive(true);
-            ControllerUILeft.text = "Throw with <font=LiberationSans SDF><mark=#ffffff padding=“10, 10, 0, 0”><b>Left Grip </b></mark></font>";
+            ControllerUILeft.text = "Throw torch at breakable frame to steal the priceless artwork.";
 
             targetPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
             transform.position = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
