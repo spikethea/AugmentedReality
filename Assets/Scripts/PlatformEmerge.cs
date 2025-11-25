@@ -8,7 +8,7 @@ public class PlatformEmerge : MonoBehaviour
     public GameObject ChewingGum;
     public TextMeshPro ControllerUILeft;
 
-    public OVRInput.RawButton EmergeButton;
+    public HeadUI HeadUICanvas;
     public bool isThumbsUp = false;
 
 
@@ -27,6 +27,9 @@ public class PlatformEmerge : MonoBehaviour
     {
         Debug.Log("Hand thumbs up detected.");
         isThumbsUp = value;
+        if (isThumbsUp && !HeadUICanvas.enabled) {
+            HeadUICanvas.hideHeadCanvas();
+        }
         return;
     }
 

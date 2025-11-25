@@ -8,10 +8,11 @@ using UnityEngine.EventSystems;
 
 public class RightHandInput : MonoBehaviour
 {
+    public HeadUI HeadUICanvas;
     // VR Controller variables
     public TextMeshPro controllerUILeft;
     public TextMeshPro controllerUIRight;
-    public OVRInput.RawButton RelocateButton;
+
     // VR Hand Variables
     public OVRHand rightHand;
     public Hand hand;
@@ -86,19 +87,26 @@ public class RightHandInput : MonoBehaviour
                     line.SetPosition(1, endPoint);
                     Destroy(line.gameObject, lineShowTimer);
 
-                    if (!FrameisSet && !isSmashed)
+                    // Remove the laser Prompt now that we no longer need it
+                    if (controllerUIRight.enabled)
                     {
-
-                        MoveFrame(hit, brokenGlassEffect);
+                        controllerUIRight.enabled = false;
+                        HeadUICanvas.hideHeadCanvas();
                     }
+                        
+                // Feature Deprecated for spatial anchors/ Effect Mesh
+                //if (!FrameisSet && !isSmashed)
+                //    {
 
-                    if (!isSmashed)
-                    {
-                        if (controllerUIRight.enabled)
-                            controllerUIRight.enabled = false;
-                        FrameisSet = true;
-                        sparkleEffect.SetActive(true);
-                    }
+                //        MoveFrame(hit, brokenGlassEffect);
+                //    }
+
+                //    if (!isSmashed)
+                //    {
+                        
+                //        FrameisSet = true;
+                //        sparkleEffect.SetActive(true);
+                //    }
 
                 // Play buzz sound
                 if (!buzzSound.isPlaying) {
