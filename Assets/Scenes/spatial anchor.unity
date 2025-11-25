@@ -603,6 +603,7 @@ MonoBehaviour:
   - 8d52cf6b-5ba5-070d-00b8-7a3d694abe95
   - 04e4d3a8-fed8-dd1c-49dd-600996ff416c
   - 1214e9d1-1a99-b80e-8bde-b06d8860ee16
+  - 0b8379ce-8c47-ddb4-68ec-182b18a71ba5
   uuidDatabase: {fileID: 11400000, guid: 5f086e819e8f48d4a80af0142c9fbdab, type: 2}
   autoSaveLoadedUuidsToAsset: 1
 --- !u!4 &872403813
@@ -1755,7 +1756,7 @@ MonoBehaviour:
   PrefabsToSpawn:
   - Labels: 8295
     Prefabs:
-    - {fileID: 4350422998566360405, guid: adc53b89e259d7c47843f8b107361508, type: 3}
+    - {fileID: 609593515707577405, guid: b68fb76c9e51ebe4ea520a4b05389604, type: 3}
     PrefabSelection: 0
     MatchAspectRatio: 0
     CalculateFacingDirection: 0
@@ -1771,11 +1772,11 @@ MonoBehaviour:
     Scaling: 0
     Alignment: 0
     IgnorePrefabSize: 0
-  - Labels: 8088
+  - Labels: 0
     Prefabs:
-    - {fileID: 8999845180316542267, guid: dfff1e4788f2a254884af1afd751f597, type: 3}
+    - {fileID: 919132149155446097, guid: 54d043109c3614242995ce06ddf9da60, type: 3}
     PrefabSelection: 0
-    MatchAspectRatio: 0
+    MatchAspectRatio: 1
     CalculateFacingDirection: 0
     Scaling: 0
     Alignment: 0
