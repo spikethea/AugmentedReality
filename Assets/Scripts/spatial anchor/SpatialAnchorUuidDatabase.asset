@@ -12,18 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2be11b00d5509c44940ab3fb43d9398, type: 3}
   m_Name: SpatialAnchorUuidDatabase
   m_EditorClassIdentifier: 
-  uuids:
-  - b3e338d4-8e1a-372e-f28c-0b2a3ae2c9cd
-  - ccb44b5b-d259-d603-7e06-040e25c1a945
-  - 3c038dfe-f806-af5c-bd53-6943af877eef
-  - 3edb4539-717e-3bf5-2dbd-ba3d7a0b6577
-  - f9355384-8a4b-059c-9643-60e8790867a1
-  - cc9d88f7-65d2-e0bb-0a72-bf9664ac0413
-  - 8bd68489-59e0-a543-8000-3f32342df31e
-  - 8b3b9cc7-436c-507c-78bc-5c9f0ac6758f
-  - 4fa997c8-637a-73ef-6615-75605814ecf3
-  - 6d303d00-dc5d-e59c-5484-95ab245bbbf8
-  - 5fc93525-b9c6-4372-f8c6-3a1de62a4eed
-  - 4249f7e4-2aeb-e7ce-2c14-889992694c3c
-  - 9e12a973-c382-8dba-1012-45be0484b0ee
+  uuids: []
   mappings: []
