@@ -85,6 +85,18 @@ public class RightHandInput : MonoBehaviour
 
                     endPoint = hit.point;
                     line.SetPosition(1, endPoint);
+
+                    if (!buzzSound.isPlaying)
+                    {
+                        buzzSound.Play();
+                    }
+
+                    // Smashable objects
+                    if (hit.transform.CompareTag("Smashable"))
+                    {
+                        hit.transform.GetComponent<Smashable>().TimerCollapse();
+                    }
+
                     Destroy(line.gameObject, lineShowTimer);
 
                     // Remove the laser Prompt now that we no longer need it
@@ -109,18 +121,13 @@ public class RightHandInput : MonoBehaviour
                 //    }
 
                 // Play buzz sound
-                if (!buzzSound.isPlaying) {
-                            buzzSound.Play();
-                        }
+                
 
                     } else {
                         if (buzzSound.isPlaying) {
                             buzzSound.Stop();
-                    }
-                // Smashable objects
-                if (hit.transform.CompareTag("Smashable")) {
-                    hit.transform.GetComponent<Smashable>().Collapse();
-                }
+                 }
+                
             }
             
 
