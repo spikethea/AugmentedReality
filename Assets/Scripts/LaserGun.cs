@@ -31,7 +31,7 @@ public class LaserGun : MonoBehaviour
             if(hit.gameObject.GetComponent<Enemy>())
             {
                 //draw ray
-                HandRa
+                RayLine.SetPosition(1, hit.transform.position);
                 
                 Enemy enemy = hit.gameObject.GetComponent<Enemy>();
                 if (enemy != null)
