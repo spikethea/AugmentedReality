@@ -91,10 +91,12 @@ public class RightHandInput : MonoBehaviour
                         buzzSound.Play();
                     }
 
+                    Debug.Log("Ray Hitting " + hit.collider.tag);
                     // Smashable objects
-                    if (hit.transform.CompareTag("Smashable"))
+                    if (hit.collider.CompareTag("Smashable"))
                     {
-                        hit.transform.GetComponent<Smashable>().TimerCollapse();
+                        Debug.Log("Comparing " + hit.collider.tag);
+                        hit.collider.GetComponent<Smashable>().TimerCollapse();
                     }
 
                     // Hitting Enemy

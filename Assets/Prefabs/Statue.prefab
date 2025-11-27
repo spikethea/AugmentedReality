@@ -13269,7 +13269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SolidMesh: {fileID: 7431954522591748101}
   BrokenMesh: {fileID: 5632908929502508845}
-  smashTimeThreshold: 2
+  smashTimeThreshold: 0.33
   smashSound: {fileID: 8300000, guid: 5dc447d9442b14447bc4f71a93cb7c50, type: 3}
   audioSource: {fileID: 40826987768609811}
 --- !u!65 &1357862898372051046

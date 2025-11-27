@@ -5,7 +5,7 @@ public class Smashable : MonoBehaviour
     public GameObject SolidMesh;
     public GameObject BrokenMesh;
     // Smashing time thresho0ld
-    [SerializeField] [Range (0, 5)] private float smashTimeThreshold = 2f;
+    private float smashTimeThreshold = 0.3f;
     private float smashTimer = 0.0f;
     private bool isCollapsed = false;
 
