@@ -17,6 +17,7 @@ TagManager:
   - QDSUITextSecondaryColor
   - QDSUIBackplateGradient
   - Smashable
+  - Enemy
   layers:
   - Default
   - TransparentFX

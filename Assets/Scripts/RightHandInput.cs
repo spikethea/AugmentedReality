@@ -29,7 +29,7 @@ public class RightHandInput : MonoBehaviour
     public MeshRenderer frameMesh;
     public MeshRenderer glassMesh;
     public MeshRenderer portalMesh;
-    public BrokenGlassEffect brokenGlassEffect;
+    //public BrokenGlassEffect brokenGlassEffect;
     private bool FrameisSet = false;
     [SerializeField] float MinFrameHeight;
     [SerializeField] float MaxFrameHeight;
@@ -48,8 +48,8 @@ public class RightHandInput : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-        brokenGlassEffect.SmashedEvent.AddListener(DisableWindow);
+        // No longer needed as not moving frame
+        //brokenGlassEffect.SmashedEvent.AddListener(DisableWindow);
     }
 
     public void DisableWindow() {
@@ -97,7 +97,14 @@ public class RightHandInput : MonoBehaviour
                         hit.transform.GetComponent<Smashable>().TimerCollapse();
                     }
 
-                    Destroy(line.gameObject, lineShowTimer);
+                    // Hitting Enemy
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        Debug.Log("Hitting Enemy");
+                        hit.transform.GetComponent<SlowEnemyNav>().TakeDamage();
+                    }
+
+                Destroy(line.gameObject, lineShowTimer);
 
                     // Remove the laser Prompt now that we no longer need it
                     if (controllerUIRight.enabled)
@@ -138,7 +145,8 @@ public class RightHandInput : MonoBehaviour
                 {
                     FrameisSet = false;
                     Clock = 0f;
-                    AdjustFramePlacement();
+                    // No moving frame
+                    //AdjustFramePlacement();
                 }
             }
 
@@ -150,47 +158,48 @@ public class RightHandInput : MonoBehaviour
 
     }
 
-    void AdjustFramePlacement()
-    {
-        if (brokenGlassEffect.transform.position.y < MinFrameHeight)
-        {
-            brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MinFrameHeight, brokenGlassEffect.transform.position.z);
-        }
+    // Moving frasme is Deprecated
+    //void AdjustFramePlacement()
+    //{
+    //    if (brokenGlassEffect.transform.position.y < MinFrameHeight)
+    //    {
+    //        brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MinFrameHeight, brokenGlassEffect.transform.position.z);
+    //    }
 
-        if (brokenGlassEffect.transform.position.y > MaxFrameHeight)
-        {
-            brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MaxFrameHeight, brokenGlassEffect.transform.position.z);
-        }
-    }
+    //    if (brokenGlassEffect.transform.position.y > MaxFrameHeight)
+    //    {
+    //        brokenGlassEffect.transform.position = new Vector3(brokenGlassEffect.transform.position.x, MaxFrameHeight, brokenGlassEffect.transform.position.z);
+    //    }
+    //}
 
-    public void MoveFrame(RaycastHit hit, BrokenGlassEffect frame)
-    {
-            // Find the surface normal of the real wall
-            Quaternion ImpactRotation = Quaternion.LookRotation(-hit.normal);
+    //public void MoveFrame(RaycastHit hit, BrokenGlassEffect frame)
+    //{
+    //        // Find the surface normal of the real wall
+    //        Quaternion ImpactRotation = Quaternion.LookRotation(-hit.normal);
 
-            if (FrameisSet) return;
-            if (ImpactRotation.eulerAngles.x < -75 || ImpactRotation.eulerAngles.x > 80) return;
+    //        if (FrameisSet) return;
+    //        if (ImpactRotation.eulerAngles.x < -75 || ImpactRotation.eulerAngles.x > 80) return;
 
-        if (frameMesh.enabled == false) {
-            frameMesh.enabled = true;
-            glassMesh.enabled = true;
-            portalMesh.enabled = true;
-        }
-        // Move the frame
-        brokenGlassEffect.transform.position = hit.point;
-
-
-            Debug.Log("Moved frame to: " + hit.point);
+    //    if (frameMesh.enabled == false) {
+    //        frameMesh.enabled = true;
+    //        glassMesh.enabled = true;
+    //        portalMesh.enabled = true;
+    //    }
+    //    // Move the frame
+    //    brokenGlassEffect.transform.position = hit.point;
 
 
+    //        Debug.Log("Moved frame to: " + hit.point);
 
 
-        // Adjust the Rotation to to be parallel to the wall
-        brokenGlassEffect.transform.rotation = ImpactRotation;
-            Debug.Log("Rotated frame to: " + ImpactRotation.eulerAngles);
 
-        //}
-    }
+
+    //    // Adjust the Rotation to to be parallel to the wall
+    //    brokenGlassEffect.transform.rotation = ImpactRotation;
+    //        Debug.Log("Rotated frame to: " + ImpactRotation.eulerAngles);
+
+    //    //}
+    //}
 
 
     public void Select(RaycastHit hit)
