@@ -933,6 +933,9 @@ MonoBehaviour:
   - 9129f71e-9c57-5ced-75a1-e7ccebf899f6
   - 12e5712c-93cf-aeb0-047d-86c46aca6f53
   - 82f2ffac-bcb9-d19a-57a4-78662c2a7151
+  - 7d02a2f9-18dd-26d5-7c72-0902158d5e59
+  - f29905e7-1867-4308-b819-9efb0d350013
+  - 997e286e-aaf5-eb91-5c64-f4ad832c8f78
   uuidDatabase: {fileID: 11400000, guid: 5f086e819e8f48d4a80af0142c9fbdab, type: 2}
   autoSaveLoadedUuidsToAsset: 1
 --- !u!4 &872403813
@@ -1460,7 +1463,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.17
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1718,7 +1721,7 @@ MonoBehaviour:
   SpawnOnStart: 1
   SeedValue: 0
   PrefabsToSpawn:
-  - Labels: 8295
+  - Labels: 8294
     Prefabs:
     - {fileID: 4350422998566360405, guid: adc53b89e259d7c47843f8b107361508, type: 3}
     PrefabSelection: 0
@@ -1727,7 +1730,7 @@ MonoBehaviour:
     Scaling: 0
     Alignment: 0
     IgnorePrefabSize: 0
-  - Labels: 3992
+  - Labels: 3984
     Prefabs:
     - {fileID: 8999845180316542267, guid: dfff1e4788f2a254884af1afd751f597, type: 3}
     PrefabSelection: 0
@@ -1745,9 +1748,18 @@ MonoBehaviour:
     Scaling: 0
     Alignment: 0
     IgnorePrefabSize: 0
-  - Labels: 3928
+  - Labels: 8
     Prefabs:
-    - {fileID: 5068584792260383046, guid: 8ed49c689672d2c499bdc54d3c234b0c, type: 3}
+    - {fileID: 919132149155446097, guid: 954aeb50235549a47b8d41af5a8d7bba, type: 3}
+    PrefabSelection: 0
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 0
+    Scaling: 0
+    Alignment: 0
+    IgnorePrefabSize: 0
+  - Labels: 3
+    Prefabs:
+    - {fileID: 609593515707577405, guid: b68fb76c9e51ebe4ea520a4b05389604, type: 3}
     PrefabSelection: 0
     MatchAspectRatio: 1
     CalculateFacingDirection: 0
