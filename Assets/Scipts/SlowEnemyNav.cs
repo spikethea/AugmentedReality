@@ -5,6 +5,7 @@ public class SlowEnemyNav : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent Agent;
     public float speed = 1f;
+    public float minEnemyDistance = 2f;
 
     // enemy Health
     private int currentHealth = 50;
@@ -17,7 +18,7 @@ public class SlowEnemyNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPositon = Camera.main.transform.position;
+        Vector3 targetPositon = Camera.main.transform.position - Vector3.forward*minEnemyDistance;
         Agent.SetDestination(targetPositon);
         Agent.speed =  speed;
 

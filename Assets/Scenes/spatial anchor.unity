@@ -427,7 +427,7 @@ MonoBehaviour:
     - {x: 0.38760024, y: -0.028313756, z: 0.07640176, w: 0.91821957}
     - {x: 0.53822744, y: 0.044428553, z: -0.011704281, w: 0.8415464}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 0
 --- !u!1 &456769750
 GameObject:
@@ -958,6 +958,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[BuildingBlock] Camera Rig (1)'
       objectReference: {fileID: 0}
+    - target: {fileID: 5560206173169606471, guid: ca2f7b5ba7fdc3d49b77628838207018, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300001, guid: 03d4f07283ae4307b8c7a2ea7ad08068, type: 2}
     - target: {fileID: 8791602766309182097, guid: ca2f7b5ba7fdc3d49b77628838207018, type: 3}
       propertyPath: frameMesh
       value: 
@@ -1152,6 +1156,17 @@ MonoBehaviour:
   - eda6c8cd-7b04-aa28-a28c-f357983e175b
   - 6cdc8178-ae03-d2ec-a622-1bc1d250c466
   - 51f10845-8082-0eb8-34cb-3f15112946b1
+  - 0eda17cd-3b9f-3a78-b9e2-65391675e874
+  - bc2be77c-621a-d593-d3e3-9dc4cabac51a
+  - 1220b789-acd6-f9ec-4434-ae06cda82514
+  - 01ca4657-18a5-1b63-21a6-237eb5bba44f
+  - 757f80f1-3ac6-559a-a7b8-92ab2323bb19
+  - fad6251f-caa1-7dee-d041-d4202fd06f9b
+  - a7aedb8c-05d3-91ac-38d2-661280d82641
+  - 1b7dd815-de21-18f6-69db-b99d181f8afc
+  - e77746de-4b21-d7d7-61f2-a85742a4f2e6
+  - d707231a-1a9e-87fe-d289-99e2680f548c
+  - c3e0b8f5-86ce-4002-b2d6-f9385ccff224
   uuidDatabase: {fileID: 11400000, guid: 5f086e819e8f48d4a80af0142c9fbdab, type: 2}
   autoSaveLoadedUuidsToAsset: 1
 --- !u!4 &872403813
@@ -1370,6 +1385,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.0256
       objectReference: {fileID: 0}
+    - target: {fileID: 8357796975926373374, guid: 59e68e858c8e9c9479d05140deb855b0, type: 3}
+      propertyPath: m_Mass
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8894793036727424970, guid: 59e68e858c8e9c9479d05140deb855b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0705
@@ -1406,7 +1425,7 @@ GameObject:
   - component: {fileID: 1097629154}
   - component: {fileID: 1097629153}
   m_Layer: 0
-  m_Name: Directional Light (1)
+  m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2005,7 +2024,7 @@ MonoBehaviour:
     - {x: 0.49140823, y: -0.019268027, z: 0.07916843, w: 0.8671096}
     - {x: 0.43606868, y: 0.04549281, z: -0.0064258166, w: 0.8987398}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 0
 --- !u!1001 &1386040010
 PrefabInstance:
@@ -2285,7 +2304,7 @@ MonoBehaviour:
     - {x: 0.4981021, y: -0.018655002, z: 0.0793152, w: 0.8632818}
     - {x: 0.4731347, y: 0.045185603, z: -0.008315614, w: 0.87979126}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 0
 --- !u!114 &1509447862 stripped
 MonoBehaviour:
