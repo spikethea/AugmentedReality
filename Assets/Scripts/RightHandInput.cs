@@ -24,11 +24,12 @@ public class RightHandInput : MonoBehaviour
     public AudioSource buzzSound;
     public Transform rightHandFingertip;
 
-    // Window frame variables
-    public GameObject sparkleEffect;
-    public MeshRenderer frameMesh;
-    public MeshRenderer glassMesh;
-    public MeshRenderer portalMesh;
+    //// Window frame variables
+    //public GameObject sparkleEffect;
+    //public MeshRenderer frameMesh;
+    //public MeshRenderer glassMesh;
+    //public MeshRenderer portalMesh;
+
     //public BrokenGlassEffect brokenGlassEffect;
     private bool FrameisSet = false;
     [SerializeField] float MinFrameHeight;
@@ -41,7 +42,8 @@ public class RightHandInput : MonoBehaviour
     public LayerMask LayerMask;
     public Transform FirePoint; 
     public LineRenderer linePrefab;
-    
+    private LineRenderer laser;
+
     [SerializeField] float lineShowTimer = 0.2f;
 
     private bool isSmashed = false;
@@ -50,6 +52,10 @@ public class RightHandInput : MonoBehaviour
     {
         // No longer needed as not moving frame
         //brokenGlassEffect.SmashedEvent.AddListener(DisableWindow);
+
+        LineRenderer line = Instantiate(linePrefab);
+        laser = line.GetComponent<LineRenderer>();
+        laser.enabled = false; // Hide at start
     }
 
     public void DisableWindow() {
@@ -79,12 +85,12 @@ public class RightHandInput : MonoBehaviour
             if (hasHit)
             {
                 if (isPointing) {
-                    LineRenderer line = Instantiate(linePrefab);
-                    line.positionCount = 2;
-                    line.SetPosition(0, FirePoint.position);
+                    laser.enabled = true;
+                    laser.positionCount = 2;
+                    laser.SetPosition(0, FirePoint.position);
 
                     endPoint = hit.point;
-                    line.SetPosition(1, endPoint);
+                    laser.SetPosition(1, endPoint);
 
                     if (!buzzSound.isPlaying)
                     {
@@ -99,14 +105,22 @@ public class RightHandInput : MonoBehaviour
                         hit.collider.GetComponent<Smashable>().TimerCollapse();
                     }
 
-                    // Hitting Enemy
-                    if (hit.transform.CompareTag("Enemy"))
+                    // Destroyable Screw
+
+                    if (hit.collider.CompareTag("Screw"))
+                    {
+                        Debug.Log("Comparing " + hit.collider.tag);
+                        hit.collider.GetComponent<Screw>().Erode();
+                    }
+
+                // Hitting Enemy
+                if (hit.transform.CompareTag("Enemy"))
                     {
                         Debug.Log("Hitting Enemy");
                         hit.transform.GetComponent<SlowEnemyNav>().TakeDamage();
                     }
 
-                Destroy(line.gameObject, lineShowTimer);
+                
 
                     // Remove the laser Prompt now that we no longer need it
                     if (controllerUIRight.enabled)
@@ -132,12 +146,13 @@ public class RightHandInput : MonoBehaviour
                 // Play buzz sound
                 
 
-                    } else {
-                        if (buzzSound.isPlaying) {
-                            buzzSound.Stop();
-                 }
-                
-            }
+                } 
+                else {
+                    laser.enabled = true;
+                    if (buzzSound.isPlaying) {
+                         buzzSound.Stop();
+                    }
+                }
             
 
             if (FrameisSet)
@@ -155,7 +170,7 @@ public class RightHandInput : MonoBehaviour
 
             } else {
                 endPoint = FirePoint.position + FirePoint.forward * MaxDistance;
-            }
+        }
         
 
     }
