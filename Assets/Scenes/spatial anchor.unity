@@ -1141,8 +1141,9 @@ MonoBehaviour:
   spawnOnStart: 1
   spawnOnStartDelaySeconds: 1
   eraseOnStart: 1
-  eraseOnStartUuids: []
-  eraseOnRefresh: 0
+  eraseOnStartUuids:
+  - 54b0b984-01f9-17fd-e5dc-a025e5eea3cc
+  eraseOnRefresh: 1
   useUnboundSpawning: 1
   ensureGrabbableComponents: 1
   spawnedUseGravity: 0
@@ -1155,18 +1156,8 @@ MonoBehaviour:
   savedUuids:
   - eda6c8cd-7b04-aa28-a28c-f357983e175b
   - 6cdc8178-ae03-d2ec-a622-1bc1d250c466
-  - 51f10845-8082-0eb8-34cb-3f15112946b1
-  - 0eda17cd-3b9f-3a78-b9e2-65391675e874
-  - bc2be77c-621a-d593-d3e3-9dc4cabac51a
-  - 1220b789-acd6-f9ec-4434-ae06cda82514
-  - 01ca4657-18a5-1b63-21a6-237eb5bba44f
-  - 757f80f1-3ac6-559a-a7b8-92ab2323bb19
-  - fad6251f-caa1-7dee-d041-d4202fd06f9b
-  - a7aedb8c-05d3-91ac-38d2-661280d82641
-  - 1b7dd815-de21-18f6-69db-b99d181f8afc
-  - e77746de-4b21-d7d7-61f2-a85742a4f2e6
-  - d707231a-1a9e-87fe-d289-99e2680f548c
-  - c3e0b8f5-86ce-4002-b2d6-f9385ccff224
+  - aa6a5685-a081-dd4d-c758-365b8c8803d5
+  - eefabe43-64f0-5bc0-91ff-8a5ee0bcfb08
   uuidDatabase: {fileID: 11400000, guid: 5f086e819e8f48d4a80af0142c9fbdab, type: 2}
   autoSaveLoadedUuidsToAsset: 1
 --- !u!4 &872403813
@@ -1443,17 +1434,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!108 &1097629154
 Light:
   m_ObjectHideFlags: 0
@@ -1465,7 +1462,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.93214524, b: 0.627451, a: 1}
-  m_Intensity: 0.08
+  m_Intensity: 0.03
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2488,58 +2485,49 @@ MonoBehaviour:
   SpawnOnStart: 1
   SeedValue: 0
   PrefabsToSpawn:
-  - Labels: 8294
-    Prefabs:
-    - {fileID: 0}
-    PrefabSelection: 0
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
-    Scaling: 0
-    Alignment: 0
-    IgnorePrefabSize: 0
-  - Labels: 3472
-    Prefabs:
-    - {fileID: 0}
-    PrefabSelection: 0
-    MatchAspectRatio: 0
-    CalculateFacingDirection: 0
-    Scaling: 0
-    Alignment: 0
-    IgnorePrefabSize: 0
   - Labels: 4096
     Prefabs:
-    - {fileID: 919132149155446097, guid: cd4aefe8692046248ad2282f539ccb33, type: 3}
+    - {fileID: 257943353120088069, guid: 89438cb9f3bdf4448989bdde6f483c89, type: 3}
     PrefabSelection: 0
     MatchAspectRatio: 0
-    CalculateFacingDirection: 0
-    Scaling: 0
-    Alignment: 0
-    IgnorePrefabSize: 0
-  - Labels: 0
-    Prefabs:
-    - {fileID: 919132149155446097, guid: 954aeb50235549a47b8d41af5a8d7bba, type: 3}
-    PrefabSelection: 0
-    MatchAspectRatio: 1
     CalculateFacingDirection: 0
     Scaling: 0
     Alignment: 0
     IgnorePrefabSize: 0
   - Labels: 1
     Prefabs:
-    - {fileID: 0}
+    - {fileID: 7275293738333516524, guid: b95dfe9d402670244bfb0f3fc8d35ab9, type: 3}
     PrefabSelection: 0
     MatchAspectRatio: 1
-    CalculateFacingDirection: 0
+    CalculateFacingDirection: 1
     Scaling: 0
     Alignment: 0
     IgnorePrefabSize: 0
   - Labels: 512
     Prefabs:
-    - {fileID: 7140011384255651408, guid: ba431660c50b64636b8c9b772bed91f0, type: 3}
+    - {fileID: 3735339428304153833, guid: 0ffb08cd0d43f4347bbd57dfd062beac, type: 3}
     PrefabSelection: 0
     MatchAspectRatio: 1
-    CalculateFacingDirection: 0
+    CalculateFacingDirection: 1
     Scaling: 0
+    Alignment: 1
+    IgnorePrefabSize: 0
+  - Labels: 2048
+    Prefabs:
+    - {fileID: 4771048788571608211, guid: d35baef22dd4fbe41b1d77987a0d2571, type: 3}
+    PrefabSelection: 0
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 1
+    Scaling: 1
+    Alignment: 0
+    IgnorePrefabSize: 0
+  - Labels: 8192
+    Prefabs:
+    - {fileID: 6053419602891094505, guid: eec5c6dcfaa98f64c805d1bcc16f17fa, type: 3}
+    PrefabSelection: 0
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 1
+    Scaling: 1
     Alignment: 0
     IgnorePrefabSize: 0
 --- !u!114 &1987540139
