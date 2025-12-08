@@ -6,6 +6,7 @@ public class BrokenGlassEffect : MonoBehaviour
     public GameObject SolidGlass;
     public GameObject BrokenGlass;
 
+
     public ParticleSystem FogEffect;
     public GameObject sparkles;
     public UnityEvent SmashedEvent;
@@ -33,7 +34,7 @@ public class BrokenGlassEffect : MonoBehaviour
             SmashedEvent.Invoke();
             sparkles.SetActive(false);
             FogEffect.Play();
-
+            //FastEnemySpawner.ToggleSpawner(true);
         }
     }
 }

@@ -9,11 +9,11 @@ public class FastEnemyNav : MonoBehaviour
 
     // Child Mesh
     public GameObject mesh;
-    public float amplitudeY = 0.5f;
+    public float amplitudeY = 0.1f;
     private Vector3 startPos;
 
     // Horizontal Movement
-    public float oscillationAmplitude = 2f;   // how far left/right
+    public float oscillationAmplitude = 0.1f;   // how far left/right
     public float oscillationSpeed = 1.5f;     // how fast it wiggles
     private float randomOffset;               // per-enemy phase offset
 
@@ -38,14 +38,10 @@ public class FastEnemyNav : MonoBehaviour
             startPos.z
         );
     }
-
     // Update is called once per frame
     void Update()
     {
         Vector3 targetPositon = Camera.main.transform.position - Vector3.forward*minEnemyDistance;
-
-        float xOffset = Mathf.Sin(Time.time * oscillationSpeed + randomOffset) * oscillationAmplitude;
-        Vector3 oscillation = transform.right * xOffset;
 
         Agent.SetDestination(targetPositon);
         Agent.speed =  speed;

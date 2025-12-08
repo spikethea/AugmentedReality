@@ -33,15 +33,16 @@ public class SecurityFrameEffect : MonoBehaviour
     {
         FogEffect.Stop();
         MetalFrame.GetComponent<Rigidbody>().useGravity = false;
+        MetalFrame.GetComponent<BoxCollider>().enabled = false;
     }
 
     private bool screwsAreDestroyed()
     {
         if (
-            Screw1.IsDestroyed() &&
-            Screw2.IsDestroyed() &&
-            Screw3.IsDestroyed() &&
-            Screw4.IsDestroyed()
+            !Screw1.activeSelf &&
+            !Screw2.activeSelf &&
+            !Screw3.activeSelf &&
+            !Screw4.activeSelf
             ) {
             return true;
             } else return false;
@@ -50,13 +51,15 @@ public class SecurityFrameEffect : MonoBehaviour
 
     void Update()
     {
-        if (screwsAreDestroyed() && FrameUnlocked) {
+        if (screwsAreDestroyed() && !FrameUnlocked) {
             SolidPicture.SetActive(false);
             MetalFrame.GetComponent<Rigidbody>().useGravity = true;
+            MetalFrame.GetComponent<BoxCollider>().enabled = true;
             Destroy(MetalFrame, 5f);
             SmashedEvent.Invoke();
             FogEffect.Play();
             FrameUnlocked = true;
+            spawner.GetComponent<EnemySpawner>().IsSpawnerStarted = true;
         }
     }
 }

@@ -19,7 +19,7 @@ public class RightHandInput : MonoBehaviour
     private bool isPointing = false;
     private Pose currentPose;
     private HandJointId handJointId = HandJointId.HandIndexTip; // TO DO: Change this to your bone.
-
+    public GameObject RightHandVisual;
     // Buzz sound
     public AudioSource buzzSound;
     public Transform rightHandFingertip;
@@ -39,6 +39,7 @@ public class RightHandInput : MonoBehaviour
 
     // Raycast parameters
     [SerializeField] float MaxDistance = 6f;
+    public GameObject LaserGun;
     public LayerMask LayerMask;
     public Transform FirePoint; 
     public LineRenderer linePrefab;
@@ -74,10 +75,10 @@ public class RightHandInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hand.GetJointPose(handJointId, out currentPose);
+        //hand.GetJointPose(handJointId, out currentPose);
         
             RaycastHit hit;
-            bool hasHit = Physics.Raycast(currentPose.position, currentPose.forward, out hit, MaxDistance, LayerMask);
+            bool hasHit = Physics.Raycast(FirePoint.position, FirePoint.forward, out hit, MaxDistance, LayerMask);
 
             Vector3 endPoint = Vector3.zero;
 
@@ -85,6 +86,8 @@ public class RightHandInput : MonoBehaviour
             if (hasHit)
             {
                 if (isPointing) {
+                RightHandVisual.SetActive(false);
+                LaserGun.SetActive(true);
                     laser.enabled = true;
                     laser.positionCount = 2;
                     laser.SetPosition(0, FirePoint.position);
@@ -148,7 +151,9 @@ public class RightHandInput : MonoBehaviour
 
                 } 
                 else {
-                    laser.enabled = true;
+                RightHandVisual.SetActive(true);
+                LaserGun.SetActive(false);
+                laser.enabled = false;
                     if (buzzSound.isPlaying) {
                          buzzSound.Stop();
                     }

@@ -115,11 +115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FastEnemyNav
   Agent: {fileID: 8292877013822609528}
   speed: 0.5
-  minEnemyDistance: 1
+  minEnemyDistance: 0
   mesh: {fileID: 5850864141434029058}
-  amplitudeY: 0.5
-  oscillationAmplitude: 2
-  oscillationSpeed: 1.5
+  amplitudeY: 0.2
+  oscillationAmplitude: 0.2
+  oscillationSpeed: 0.5
 --- !u!1 &5850864141434029058
 GameObject:
   m_ObjectHideFlags: 0

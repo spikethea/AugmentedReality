@@ -14,16 +14,16 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EnemyToSpawn;
 
     //spawn location settings
-    public float MinEdgeDistance = 0.3f;
+    //public float MinEdgeDistance = 0.3f;
     //public MRUKAnchor.SceneLabels SpawnLabel;
-    public float NormalOffset = 0f; //from the spawn point
+    //public float NormalOffset = 0f; //from the spawn point
     public int SpawnTry = 20; //to test
     private float timer;
-    private bool isSpawnerStarted = false;
+    public bool IsSpawnerStarted = false;
 
     public void ToggleSpawner(bool value)
     {
-        isSpawnerStarted = value;
+        IsSpawnerStarted = value;
 
         return;
     }
@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        if (isSpawnerStarted) {
+        if (IsSpawnerStarted) {
             timer += Time.deltaTime;
             if (timer > SpawnTimer)
             {

@@ -4,7 +4,9 @@ public class Screw : MonoBehaviour
 {
     // Screw Properties
     private Renderer rend;
-
+    public int erodeThreshold = 100;
+    
+    private int erodeTimer = 0;
 
     // Red Oscillating
     private float speed = 1f;
@@ -19,7 +21,12 @@ public class Screw : MonoBehaviour
     public void Erode()
     {
         rend = GetComponent<Renderer>();
-        Destroy(transform, 300);
+        Debug.Log("Erode" + gameObject.name);
+        erodeTimer++;
+        if (erodeThreshold < erodeTimer) {
+            gameObject.SetActive(false);
+        }
+        
     }
 
     void Update()
