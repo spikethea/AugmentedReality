@@ -1,6 +1,7 @@
 //This script is inspired by this tutorial: https://www.youtube.com/watch?v=uMPb_B1OyH0
 
 using UnityEngine;
+
 public class FastEnemyNav : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent Agent;
@@ -19,6 +20,11 @@ public class FastEnemyNav : MonoBehaviour
 
     // enemy Health
     private int currentHealth = 15;
+
+    // Coins
+    public GameObject CoinPrefab;
+    public Transform MeshTransform;
+    public BoxCollider MeshCollider;
 
     private void Start()
     {
@@ -42,6 +48,7 @@ public class FastEnemyNav : MonoBehaviour
     void Update()
     {
         Vector3 targetPositon = Camera.main.transform.position - Vector3.forward*minEnemyDistance;
+        MeshTransform.rotation = Camera.main.transform.rotation;
 
         Agent.SetDestination(targetPositon);
         Agent.speed =  speed;
@@ -49,7 +56,8 @@ public class FastEnemyNav : MonoBehaviour
         Debug.Log("Enemy health" + currentHealth);
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            //Instantiate(CoinPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject, 0.3f);
         }
 
         Ocsillate();

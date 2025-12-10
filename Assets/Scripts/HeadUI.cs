@@ -4,6 +4,7 @@ using TMPro;
 public class HeadUI : MonoBehaviour
 {
     public Canvas HeadUICanvas;
+    public MeshRenderer filter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 

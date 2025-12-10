@@ -53,6 +53,9 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 
+# Unity Undo/Temp files
+*.utmp
+
 # Unity3D generated file on crash reports
 sysinfo.txt
 

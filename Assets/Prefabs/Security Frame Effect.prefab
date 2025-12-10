@@ -98,7 +98,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   spawner: {fileID: 3143420257957949451, guid: 186450e393b5fa949973d04b10dc2eb7, type: 3}
-  breakSound: {fileID: 8300000, guid: 95ac053a98402fd45b5fb13bd556e279, type: 3}
+  breakSound: {fileID: 8300000, guid: 07cdd911646efc94483bc368cd322f14, type: 3}
 --- !u!1 &1670781950685741014
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,11 +55,23 @@ public class SecurityFrameEffect : MonoBehaviour
             SolidPicture.SetActive(false);
             MetalFrame.GetComponent<Rigidbody>().useGravity = true;
             MetalFrame.GetComponent<BoxCollider>().enabled = true;
+
             Destroy(MetalFrame, 5f);
             SmashedEvent.Invoke();
             FogEffect.Play();
             FrameUnlocked = true;
             spawner.GetComponent<EnemySpawner>().IsSpawnerStarted = true;
+        }
+
+        if (FrameUnlocked)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(breakSound, 1);
+            }
+
+            MetalFrame.GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0.5f);
         }
     }
 }

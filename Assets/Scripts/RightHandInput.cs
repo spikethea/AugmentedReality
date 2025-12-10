@@ -120,8 +120,16 @@ public class RightHandInput : MonoBehaviour
                 if (hit.transform.CompareTag("Enemy"))
                     {
                         Debug.Log("Hitting Enemy");
-                        hit.transform.GetComponent<SlowEnemyNav>().TakeDamage();
-                    }
+
+                        var slow = hit.transform.GetComponent<SlowEnemyNav>();
+                        var fast = hit.transform.parent?.GetComponent<FastEnemyNav>();
+
+                        if (slow != null)
+                            slow.TakeDamage();
+
+                        if (fast != null)
+                            fast.TakeDamage();
+                }
 
                 
 
