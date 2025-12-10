@@ -17,7 +17,7 @@ public class SecurityFrameEffect : MonoBehaviour
     public UnityEvent SmashedEvent;
 
     // Enemy Spawner
-    public GameObject spawner;
+    public EnemySpawner spawner;
 
     private bool FrameUnlocked = false;
 
@@ -51,7 +51,9 @@ public class SecurityFrameEffect : MonoBehaviour
 
     void Update()
     {
+        
         if (screwsAreDestroyed() && !FrameUnlocked) {
+            Debug.Log("spawner.IsSpawnerStarted: " + spawner.IsSpawnerStarted);
             SolidPicture.SetActive(false);
             MetalFrame.GetComponent<Rigidbody>().useGravity = true;
             MetalFrame.GetComponent<BoxCollider>().enabled = true;
@@ -59,8 +61,8 @@ public class SecurityFrameEffect : MonoBehaviour
             Destroy(MetalFrame, 5f);
             SmashedEvent.Invoke();
             FogEffect.Play();
+            spawner.IsSpawnerStarted = true;
             FrameUnlocked = true;
-            spawner.GetComponent<EnemySpawner>().IsSpawnerStarted = true;
         }
 
         if (FrameUnlocked)

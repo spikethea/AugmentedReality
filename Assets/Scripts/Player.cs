@@ -8,11 +8,14 @@ public class Player : MonoBehaviour
     public HeadUI headUI;
     public float fadeSpeed = 0.5f;
 
-    private float damgeTimeout = 0;
+    private float damageTimeout = 0;
     private int playerHealth = 3;
 
     private Material mat;
     private Color color;
+
+    //coroutine variable
+    private Coroutine fadeRoutine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,12 +23,22 @@ public class Player : MonoBehaviour
         color = mat.color;
 
         headUI.filter.material.color = new Color(1, 1, 1, 1);
+        StartCoroutine(Fade(1f));
     }
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Taking Damage");
         playerHealth -= damage;
-        headUI.filter.material.color = new UnityEngine.Color(1, 1, 1, playerHealth/3);
+
+        if (damageTimeout <= 0)
+        {
+            //headUI.filter.material.color = new UnityEngine.Color(1, 1, 1, (float)playerHealth / 2f);
+            if (fadeRoutine != null)
+                StopCoroutine(fadeRoutine);
+
+            fadeRoutine = StartCoroutine(Fade(1 /(float)playerHealth));
+        }
         if (playerHealth <= 0)
         {
             Debug.Log("Player has died.");
@@ -37,42 +50,66 @@ public class Player : MonoBehaviour
     {
         // Handle player death (e.g., play animation, restart level, etc.)
         Debug.Log("Handling player death...");
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
         headUI.filter.material.color = new Color(0.2f, 0.2f, 0.2f, 1);
+        headUI.setHeadCanvasTitle("YOU DIED");
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            if (damgeTimeout > 0) return;
+            if (damageTimeout > 0) return;
+
             TakeDamage(1);
-            damgeTimeout = 5;
+            Rigidbody enemyRb = other.attachedRigidbody;
+            if (enemyRb != null)
+            {
+                Vector3 pushDir = (other.transform.position - transform.position).normalized;
+                float pushForce = 2f;
+
+                enemyRb.AddForce(pushDir * pushForce, ForceMode.Impulse);
+            }
+            damageTimeout = 5;
         }
     }
 
-    private void FadeOut()
+    IEnumerator Fade(float startAlpha)
     {
+        color = mat.color;
+        color.a = startAlpha;
+        mat.color = color;
 
-
-        if (color.a > 0)
+        while (color.a > 0)
         {
             color.a -= fadeSpeed * Time.deltaTime;
-            color.a = Mathf.Clamp01(color.a); // keep between 0–1
             mat.color = color;
+            yield return null;
         }
     }
+
+
+    //private void FadeOut()
+    //{
+    //    color = mat.color;
+
+    //    if (color.a > 0)
+    //    {
+    //        color.a -= fadeSpeed * Time.deltaTime;
+    //        color.a = Mathf.Clamp01(color.a); // keep between 0?
+    //        mat.color = color;
+    //    }
+    //}
 
     // Update is called once per frame
     void Update()
     {
-        if (damgeTimeout > 0)
+        if (damageTimeout > 0)
         {
-            damgeTimeout -= Time.deltaTime;
-        }
-
-        if (mat.color.a > 0 && playerHealth >= 0) {
-            FadeOut();
+            damageTimeout -= Time.deltaTime;
         }
 
     }

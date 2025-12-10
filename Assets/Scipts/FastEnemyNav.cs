@@ -12,17 +12,23 @@ public class FastEnemyNav : MonoBehaviour
     public GameObject mesh;
     public float amplitudeY = 0.1f;
     private Vector3 startPos;
-
-    // Horizontal Movement
-    public float oscillationAmplitude = 0.1f;   // how far left/right
-    public float oscillationSpeed = 1.5f;     // how fast it wiggles
     private float randomOffset;               // per-enemy phase offset
+
+    [Header("Horizontal Random Movement")]
+    public float sideMoveAmount = 3f;   // max left/right distance
+    public float sideChangeInterval = 1.2f; // how often direction changes
+
+    private float currentSideOffset;
+    private float targetSideOffset;
+    private float sideTimer;
+
+
 
     // enemy Health
     private int currentHealth = 15;
 
     // Coins
-    public GameObject CoinPrefab;
+    public GameObject ThrowingPrefab;
     public Transform MeshTransform;
     public BoxCollider MeshCollider;
 
@@ -33,12 +39,13 @@ public class FastEnemyNav : MonoBehaviour
     public void TakeDamage()
     {
         currentHealth--;
+        Debug.Log("Taking Damage Flying Object");
     }
 
     public void Ocsillate()
     {
         float yOffset = Mathf.Sin(Time.time * speed) * amplitudeY;
-        transform.position = new Vector3(
+        mesh.transform.localPosition = new Vector3(
             startPos.x,
             startPos.y + yOffset,
             startPos.z
@@ -47,16 +54,43 @@ public class FastEnemyNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPositon = Camera.main.transform.position - Vector3.forward*minEnemyDistance;
-        MeshTransform.rotation = Camera.main.transform.rotation;
+        Vector3 playerPos = Camera.main.transform.position;
 
-        Agent.SetDestination(targetPositon);
+        // Direction from enemy to player
+        Vector3 toPlayer = (playerPos - transform.position).normalized;
+
+        // Perpendicular (left/right)
+        Vector3 right = Vector3.Cross(Vector3.up, toPlayer);
+
+        // Change target offset occasionally
+        sideTimer += Time.deltaTime;
+        if (sideTimer >= sideChangeInterval)
+        {
+            sideTimer = 0f;
+            targetSideOffset = Random.Range(-sideMoveAmount, sideMoveAmount);
+        }
+
+        // Smooth movement so it¡¯s not jittery
+        currentSideOffset = Mathf.Lerp(
+            currentSideOffset,
+            targetSideOffset,
+            Time.deltaTime * 2f
+        );
+
+        // Final target position
+        Vector3 targetPosition =
+            playerPos
+            - toPlayer * minEnemyDistance
+            + right * currentSideOffset;
+
+        Agent.SetDestination(targetPosition);
         Agent.speed =  speed;
 
-        Debug.Log("Enemy health" + currentHealth);
+        //Debug.Log("Enemy health" + currentHealth);
         if (currentHealth <= 0)
         {
-            //Instantiate(CoinPrefab, transform.position, Quaternion.identity);
+            Debug.Log("Dead");
+            Instantiate(ThrowingPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject, 0.3f);
         }
 

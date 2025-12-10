@@ -66,7 +66,7 @@ public class RightHandInput : MonoBehaviour
 
     public void Pointing(bool value)
     {
-        Debug.Log("Pointing " + value);
+        //Debug.Log("Pointing " + value);
         isPointing = value;
         return;
     }
@@ -100,7 +100,7 @@ public class RightHandInput : MonoBehaviour
                         buzzSound.Play();
                     }
 
-                    Debug.Log("Ray Hitting " + hit.collider.tag);
+                    //Debug.Log("Ray Hitting " + hit.collider.tag);
                     // Smashable objects
                     if (hit.collider.CompareTag("Smashable"))
                     {
@@ -119,7 +119,7 @@ public class RightHandInput : MonoBehaviour
                 // Hitting Enemy
                 if (hit.transform.CompareTag("Enemy"))
                     {
-                        Debug.Log("Hitting Enemy");
+                        Debug.Log("Hitting Enemy" + hit.collider.gameObject.name);
 
                         var slow = hit.transform.GetComponent<SlowEnemyNav>();
                         var fast = hit.transform.parent?.GetComponent<FastEnemyNav>();
@@ -129,6 +129,15 @@ public class RightHandInput : MonoBehaviour
 
                         if (fast != null)
                             fast.TakeDamage();
+
+                        Rigidbody enemyRb = hit.rigidbody;
+                        if (enemyRb != null)
+                        {
+                            Vector3 pushDir = (hit.transform.position - transform.position).normalized;
+                            float pushForce = 0.1f;
+
+                            enemyRb.AddForce(pushDir * pushForce, ForceMode.Impulse);
+                        }
                 }
 
                 

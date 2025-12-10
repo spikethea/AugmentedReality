@@ -15,16 +15,16 @@ public class EnemySpawner : MonoBehaviour
 
     //spawn location settings
     //public float MinEdgeDistance = 0.3f;
-    //public MRUKAnchor.SceneLabels SpawnLabel;
+    //public MRUKAncho r.SceneLabels SpawnLabel;
     //public float NormalOffset = 0f; //from the spawn point
-    public int SpawnTry = 20; //to test
+    public int SpawnTry = 10; //to test
     private float timer;
     public bool IsSpawnerStarted = false;
 
     public void ToggleSpawner(bool value)
     {
         IsSpawnerStarted = value;
-
+        Debug.Log("Toggle Spawner called");
         return;
     }
 

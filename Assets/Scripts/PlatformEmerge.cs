@@ -36,7 +36,7 @@ public class PlatformEmerge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (isThumbsUp && !isEmerged)
         {
             isEmerged = true;
@@ -48,6 +48,9 @@ public class PlatformEmerge : MonoBehaviour
             targetPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
             transform.position = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
             StartCoroutine(Lerp());
+        }
+        else if (isThumbsUp && isEmerged) { 
+            ChewingGum.transform.position = targetPosition;
         }
 
         
@@ -69,5 +72,5 @@ public class PlatformEmerge : MonoBehaviour
                 yield return null;
             }
             transform.position = endPosition;
-     }
+    }
 }
