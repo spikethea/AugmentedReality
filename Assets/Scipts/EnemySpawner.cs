@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     //Slow enemy spawning
     public float SpawnTimer = 5f;
     public GameObject EnemyToSpawn;
+    public Transform FramePosition;
 
     //spawn location settings
     //public float MinEdgeDistance = 0.3f;
@@ -62,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
             //{
                 //Vector3 randomPositionNormalOffset = pos + norm * NormalOffset;
                 //randomPositionNormalOffset.y = 0;
-                Instantiate(EnemyToSpawn, transform.position, Quaternion.identity);
+                Instantiate(EnemyToSpawn, FramePosition.position, Quaternion.identity);
                 return;
             //}
             //else

@@ -19,6 +19,7 @@ TagManager:
   - Smashable
   - Enemy
   - Screw
+  - EnemyAttacking
   layers:
   - Default
   - TransparentFX

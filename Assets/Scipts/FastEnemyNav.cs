@@ -1,68 +1,86 @@
-//This script is inspired by this tutorial: https://www.youtube.com/watch?v=uMPb_B1OyH0
-
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;   // for runtime navmesh
+using System.Collections;
 
 public class FastEnemyNav : MonoBehaviour
 {
-    public UnityEngine.AI.NavMeshAgent Agent;
+    [Header("NavMesh")]
+    public NavMeshAgent Agent;
+    private NavMeshSurface surface;
+
+    [Header("Movement")]
     public float speed = 0.5f;
     public float minEnemyDistance = 2f;
 
-    // Child Mesh
+    [Header("Vertical Oscillation")]
     public GameObject mesh;
     public float amplitudeY = 0.1f;
-    private Vector3 startPos;
-    private float randomOffset;               // per-enemy phase offset
+    private Vector3 startMeshPos;
 
-    [Header("Horizontal Random Movement")]
-    public float sideMoveAmount = 3f;   // max left/right distance
-    public float sideChangeInterval = 1.2f; // how often direction changes
-
-    private float currentSideOffset;
-    private float targetSideOffset;
+    [Header("Horizontal Sway")]
+    public float sideMoveAmount = 3f;
+    public float sideChangeInterval = 1.2f;
     private float sideTimer;
+    private float targetSideOffset;
+    private float currentSideOffset;
 
-
-
-    // enemy Health
+    [Header("Health & Drop")]
     private int currentHealth = 15;
-
-    // Coins
     public GameObject ThrowingPrefab;
-    public Transform MeshTransform;
-    public BoxCollider MeshCollider;
 
     private void Start()
     {
-        randomOffset = Random.Range(0f, 100f);
+        startMeshPos = mesh.transform.localPosition;
+
+        // Find runtime navmesh surface (RoomModel)
+        surface = FindObjectOfType<NavMeshSurface>();
+
+        // Ensure navmesh exists before movement
+        StartCoroutine(NavMeshInit());
     }
+
+    // Check if navmesh exists (RoomModel builds it at runtime)
+    bool NavMeshExists()
+    {
+        return NavMesh.CalculateTriangulation().vertices.Length > 0;
+    }
+
+    IEnumerator NavMeshInit()
+    {
+        // Wait until RoomModel navmesh is fully built
+        while (!NavMeshExists())
+            yield return null;
+
+        // Snap onto navmesh
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+            transform.position = hit.position;
+
+        Debug.Log("Enemy placed on NavMesh and ready.");
+    }
+
     public void TakeDamage()
     {
         currentHealth--;
-        Debug.Log("Taking Damage Flying Object");
+        if (currentHealth <= 0)
+        {
+            Instantiate(ThrowingPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 
-    public void Ocsillate()
-    {
-        float yOffset = Mathf.Sin(Time.time * speed) * amplitudeY;
-        mesh.transform.localPosition = new Vector3(
-            startPos.x,
-            startPos.y + yOffset,
-            startPos.z
-        );
-    }
-    // Update is called once per frame
     void Update()
     {
+        if (!Agent.isOnNavMesh)
+            return;
+
         Vector3 playerPos = Camera.main.transform.position;
 
-        // Direction from enemy to player
+        // Direction toward player
         Vector3 toPlayer = (playerPos - transform.position).normalized;
-
-        // Perpendicular (left/right)
         Vector3 right = Vector3.Cross(Vector3.up, toPlayer);
 
-        // Change target offset occasionally
+        // Horizontal sway timing
         sideTimer += Time.deltaTime;
         if (sideTimer >= sideChangeInterval)
         {
@@ -70,30 +88,32 @@ public class FastEnemyNav : MonoBehaviour
             targetSideOffset = Random.Range(-sideMoveAmount, sideMoveAmount);
         }
 
-        // Smooth movement so it¡¯s not jittery
+        // Smooth interpolation
         currentSideOffset = Mathf.Lerp(
             currentSideOffset,
             targetSideOffset,
             Time.deltaTime * 2f
         );
 
-        // Final target position
-        Vector3 targetPosition =
+        // Final movement target
+        Vector3 targetPos =
             playerPos
             - toPlayer * minEnemyDistance
             + right * currentSideOffset;
 
-        Agent.SetDestination(targetPosition);
-        Agent.speed =  speed;
+        // Ensure target is *on navmesh*
+        if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            Agent.SetDestination(hit.position);
 
-        //Debug.Log("Enemy health" + currentHealth);
-        if (currentHealth <= 0)
-        {
-            Debug.Log("Dead");
-            Instantiate(ThrowingPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject, 0.3f);
-        }
+        Agent.speed = speed;
 
-        Ocsillate();
+        // Floating animation
+        ApplyVerticalOscillation();
+    }
+
+    void ApplyVerticalOscillation()
+    {
+        float yOffset = Mathf.Sin(Time.time * speed) * amplitudeY;
+        mesh.transform.localPosition = startMeshPos + new Vector3(0, yOffset, 0);
     }
 }

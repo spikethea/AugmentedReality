@@ -326,14 +326,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2962106928382801809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.025, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.369, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3306324198513147758}
   m_Father: {fileID: 2038073558297849856}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &4908048187815215807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 940699391271311522}
   m_Layer: 2
   m_Name: Fast Flying Enemy
-  m_TagString: Untagged
+  m_TagString: EnemyAttacking
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -476,5 +476,3 @@ MonoBehaviour:
   sideMoveAmount: 0.5
   sideChangeInterval: 1.2
   ThrowingPrefab: {fileID: 7968088431118902273, guid: 003003aa7199c654185a9dcb2818d2db, type: 3}
-  MeshTransform: {fileID: 884032228157701762}
-  MeshCollider: {fileID: 4908048187815215807}

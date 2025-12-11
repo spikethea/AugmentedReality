@@ -1,6 +1,8 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Color = UnityEngine.Color;
 
 public class SecurityFrameEffect : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class SecurityFrameEffect : MonoBehaviour
     public GameObject SolidPicture;
     public UnityEvent SmashedEvent;
 
+    private Material mat;
+    private Color color;
+    public float fadeSpeed = 0.5f;
+
     // Enemy Spawner
     public EnemySpawner spawner;
 
@@ -27,6 +33,10 @@ public class SecurityFrameEffect : MonoBehaviour
     {
         if (SmashedEvent == null)
             SmashedEvent = new UnityEvent();
+
+        mat = SolidPicture.GetComponent<MeshRenderer>().material;
+        color = mat.color;
+        Debug.Log(color);
     }
 
     private void Awake()
@@ -34,6 +44,16 @@ public class SecurityFrameEffect : MonoBehaviour
         FogEffect.Stop();
         MetalFrame.GetComponent<Rigidbody>().useGravity = false;
         MetalFrame.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    private void PlaySound() {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (!audioSource.isPlaying && audioSource)
+        {
+            audioSource.PlayOneShot(breakSound, 1);
+        }
+
+        MetalFrame.GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0.5f);
     }
 
     private bool screwsAreDestroyed()
@@ -44,36 +64,49 @@ public class SecurityFrameEffect : MonoBehaviour
             !Screw3.activeSelf &&
             !Screw4.activeSelf
             ) {
+            PlaySound();
             return true;
             } else return false;
     }
 
 
+    IEnumerator Fade(float startAlpha)
+    {
+        Debug.Log("Start Fade");
+        color = mat.color;
+        color.a = startAlpha;
+        mat.color = color;
+
+        while (color.a > 0)
+        {
+            Debug.Log("Fading");
+            color.a -= fadeSpeed * Time.deltaTime;
+            mat.color = color;
+            yield return null;
+        }
+    }
+
     void Update()
     {
-        
-        if (screwsAreDestroyed() && !FrameUnlocked) {
+
+        if (screwsAreDestroyed() && !FrameUnlocked)
+        {
             Debug.Log("spawner.IsSpawnerStarted: " + spawner.IsSpawnerStarted);
-            SolidPicture.SetActive(false);
+           
             MetalFrame.GetComponent<Rigidbody>().useGravity = true;
             MetalFrame.GetComponent<BoxCollider>().enabled = true;
-
+            
+            Destroy(SolidPicture, 5f);
             Destroy(MetalFrame, 5f);
             SmashedEvent.Invoke();
             FogEffect.Play();
             spawner.IsSpawnerStarted = true;
             FrameUnlocked = true;
+            
+            StartCoroutine(Fade(1f));
         }
 
-        if (FrameUnlocked)
-        {
-            AudioSource audioSource = GetComponent<AudioSource>();
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(breakSound, 1);
-            }
-
-            MetalFrame.GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0.5f);
-        }
+        
     }
+
 }

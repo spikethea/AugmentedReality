@@ -21,7 +21,8 @@ public class RightHandInput : MonoBehaviour
     private HandJointId handJointId = HandJointId.HandIndexTip; // TO DO: Change this to your bone.
     public GameObject RightHandVisual;
     // Buzz sound
-    public AudioSource buzzSound;
+    public AudioClip buzzSound;
+    public AudioSource source;
     public Transform rightHandFingertip;
 
     //// Window frame variables
@@ -53,7 +54,7 @@ public class RightHandInput : MonoBehaviour
     {
         // No longer needed as not moving frame
         //brokenGlassEffect.SmashedEvent.AddListener(DisableWindow);
-
+        source.clip = buzzSound;
         LineRenderer line = Instantiate(linePrefab);
         laser = line.GetComponent<LineRenderer>();
         laser.enabled = false; // Hide at start
@@ -75,9 +76,8 @@ public class RightHandInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //hand.GetJointPose(handJointId, out currentPose);
         
-            RaycastHit hit;
+        RaycastHit hit;
             bool hasHit = Physics.Raycast(FirePoint.position, FirePoint.forward, out hit, MaxDistance, LayerMask);
 
             Vector3 endPoint = Vector3.zero;
@@ -95,9 +95,10 @@ public class RightHandInput : MonoBehaviour
                     endPoint = hit.point;
                     laser.SetPosition(1, endPoint);
 
-                    if (!buzzSound.isPlaying)
+                    if (!source.isPlaying)
                     {
-                        buzzSound.Play();
+                        source.Play();
+                        Debug.Log("Buzz");
                     }
 
                     //Debug.Log("Ray Hitting " + hit.collider.tag);
@@ -171,8 +172,8 @@ public class RightHandInput : MonoBehaviour
                 RightHandVisual.SetActive(true);
                 LaserGun.SetActive(false);
                 laser.enabled = false;
-                    if (buzzSound.isPlaying) {
-                         buzzSound.Stop();
+                    if (source.isPlaying) {
+                        source.Stop();
                     }
                 }
             
