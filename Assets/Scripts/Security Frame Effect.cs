@@ -46,9 +46,10 @@ public class SecurityFrameEffect : MonoBehaviour
         MetalFrame.GetComponent<BoxCollider>().enabled = false;
     }
 
-    private void PlaySound() {
+    [ContextMenu("sound")]
+    public void PlaySound() {
         AudioSource audioSource = GetComponent<AudioSource>();
-        if (!audioSource.isPlaying && audioSource)
+        if (audioSource)
         {
             audioSource.PlayOneShot(breakSound, 1);
         }
@@ -64,7 +65,6 @@ public class SecurityFrameEffect : MonoBehaviour
             !Screw3.activeSelf &&
             !Screw4.activeSelf
             ) {
-            PlaySound();
             return true;
             } else return false;
     }
@@ -95,7 +95,7 @@ public class SecurityFrameEffect : MonoBehaviour
            
             MetalFrame.GetComponent<Rigidbody>().useGravity = true;
             MetalFrame.GetComponent<BoxCollider>().enabled = true;
-            
+            PlaySound();
             Destroy(SolidPicture, 5f);
             Destroy(MetalFrame, 5f);
             SmashedEvent.Invoke();

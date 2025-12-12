@@ -3,6 +3,7 @@ using Oculus.Interaction.Input;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 
@@ -76,18 +77,23 @@ public class RightHandInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        RaycastHit hit;
-            bool hasHit = Physics.Raycast(FirePoint.position, FirePoint.forward, out hit, MaxDistance, LayerMask);
-
-            Vector3 endPoint = Vector3.zero;
 
 
-            if (hasHit)
+        RaycastHit[] hits = Physics.RaycastAll(FirePoint.position, FirePoint.forward, MaxDistance, LayerMask);
+
+        Vector3 endPoint = Vector3.zero;
+
+        float closestDistance = float.MaxValue;
+
+        foreach(var hit in hits) {
             {
-                if (isPointing) {
-                RightHandVisual.SetActive(false);
-                LaserGun.SetActive(true);
+                if (hit.distance < closestDistance) {
+                    closestDistance = hit.distance;
+                }
+                if (isPointing)
+                {
+                    RightHandVisual.SetActive(false);
+                    LaserGun.SetActive(true);
                     laser.enabled = true;
                     laser.positionCount = 2;
                     laser.SetPosition(0, FirePoint.position);
@@ -117,13 +123,13 @@ public class RightHandInput : MonoBehaviour
                         hit.collider.GetComponent<Screw>().Erode();
                     }
 
-                // Hitting Enemy
-                if (hit.transform.CompareTag("Enemy"))
+                    // Hitting Enemy
+                    if (hit.transform.CompareTag("Enemy") || hit.transform.CompareTag("EnemyAttacking"))
                     {
                         Debug.Log("Hitting Enemy" + hit.collider.gameObject.name);
 
                         var slow = hit.transform.GetComponent<SlowEnemyNav>();
-                        var fast = hit.transform.parent?.GetComponent<FastEnemyNav>();
+                        var fast = hit.transform.GetComponent<FastEnemyNav>();
 
                         if (slow != null)
                             slow.TakeDamage();
@@ -134,14 +140,16 @@ public class RightHandInput : MonoBehaviour
                         Rigidbody enemyRb = hit.rigidbody;
                         if (enemyRb != null)
                         {
-                            Vector3 pushDir = (hit.transform.position - transform.position).normalized;
-                            float pushForce = 0.1f;
+                            Vector3 pushDirection = (hit.transform.position - transform.position);
+                            pushDirection = new Vector3(pushDirection.x, 0, pushDirection.z);
+                            float pushForce = 1f;
 
-                            enemyRb.AddForce(pushDir * pushForce, ForceMode.Impulse);
+                            enemyRb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+                            if(hit.collider.GetComponent<NavMeshAgent>()) hit.collider.GetComponent<NavMeshAgent>().Move(pushDirection*0.05f);
                         }
-                }
+                    }
 
-                
+
 
                     // Remove the laser Prompt now that we no longer need it
                     if (controllerUIRight.enabled)
@@ -149,33 +157,36 @@ public class RightHandInput : MonoBehaviour
                         controllerUIRight.enabled = false;
                         HeadUICanvas.hideHeadCanvas();
                     }
-                        
-                // Feature Deprecated for spatial anchors/ Effect Mesh
-                //if (!FrameisSet && !isSmashed)
-                //    {
 
-                //        MoveFrame(hit, brokenGlassEffect);
-                //    }
+                    // Feature Deprecated for spatial anchors/ Effect Mesh
+                    //if (!FrameisSet && !isSmashed)
+                    //    {
 
-                //    if (!isSmashed)
-                //    {
-                        
-                //        FrameisSet = true;
-                //        sparkleEffect.SetActive(true);
-                //    }
+                    //        MoveFrame(hit, brokenGlassEffect);
+                    //    }
 
-                // Play buzz sound
-                
+                    //    if (!isSmashed)
+                    //    {
 
-                } 
-                else {
-                RightHandVisual.SetActive(true);
-                LaserGun.SetActive(false);
-                laser.enabled = false;
-                    if (source.isPlaying) {
+                    //        FrameisSet = true;
+                    //        sparkleEffect.SetActive(true);
+                    //    }
+
+                    // Play buzz sound
+
+
+                }
+                else
+                {
+                    RightHandVisual.SetActive(true);
+                    LaserGun.SetActive(false);
+                    laser.enabled = false;
+                    if (source.isPlaying)
+                    {
                         source.Stop();
                     }
                 }
+            
             
 
             if (FrameisSet)
@@ -191,9 +202,13 @@ public class RightHandInput : MonoBehaviour
             }
 
 
-            } else {
-                endPoint = FirePoint.position + FirePoint.forward * MaxDistance;
+            }
+            
+            
+
         }
+        endPoint = FirePoint.position + FirePoint.forward * closestDistance;
+
         
 
     }

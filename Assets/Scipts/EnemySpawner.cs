@@ -1,6 +1,7 @@
 //This script followed this tutorial: https://www.youtube.com/watch?v=rc_7iuuYSGA
 using UnityEngine;
 using Meta.XR.MRUtilityKit;
+using UnityEngine.Serialization;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     //Slow enemy spawning
     public float SpawnTimer = 5f;
     public GameObject EnemyToSpawn;
-    public Transform FramePosition;
+    [FormerlySerializedAs("FramePosition")]public Transform SpawnPoint;
 
     //spawn location settings
     //public float MinEdgeDistance = 0.3f;
@@ -63,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
             //{
                 //Vector3 randomPositionNormalOffset = pos + norm * NormalOffset;
                 //randomPositionNormalOffset.y = 0;
-                Instantiate(EnemyToSpawn, FramePosition.position, Quaternion.identity);
+                Instantiate(EnemyToSpawn, SpawnPoint.position, Quaternion.identity);
                 return;
             //}
             //else

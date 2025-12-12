@@ -74,8 +74,8 @@ public class SlowEnemyNav : MonoBehaviour
     void Update()
     {
 
-        if (!Agent.isOnNavMesh)
-            Destroy(gameObject);
+        //if (!Agent.isOnNavMesh)
+        //    Destroy(gameObject);
 
         Vector3 targetPositon = Camera.main.transform.position - Vector3.forward*minEnemyDistance;
         //transform.rotation =  Camera.main.transform.rotation;

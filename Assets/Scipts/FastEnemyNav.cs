@@ -26,7 +26,7 @@ public class FastEnemyNav : MonoBehaviour
     private float currentSideOffset;
 
     [Header("Health & Drop")]
-    private int currentHealth = 15;
+    public int currentHealth = 15;
     public GameObject ThrowingPrefab;
 
     private void Start()
@@ -58,7 +58,7 @@ public class FastEnemyNav : MonoBehaviour
 
         Debug.Log("Enemy placed on NavMesh and ready.");
     }
-
+    [ContextMenu("Test")]
     public void TakeDamage()
     {
         currentHealth--;

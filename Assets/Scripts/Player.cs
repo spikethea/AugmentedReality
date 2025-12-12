@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Audio;
 using Color = UnityEngine.Color;
 
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
     public float fadeSpeed = 0.5f;
 
     private float damageTimeout = 0;
-    private int playerHealth = 3;
+    private int playerHealth = 10;
 
     public Texture DeathTexture;
     private Material mat;
@@ -58,13 +59,13 @@ public class Player : MonoBehaviour
             StopCoroutine(fadeRoutine);
 
         headUI.filter.material.color = new Color(0.5f, 0.5f, 0.5f, 1);
-        headUI.filter.material.SetTexture("Material.001", DeathTexture);
+        headUI.filter.material.mainTexture = DeathTexture;
         headUI.setHeadCanvasTitle("YOU DIED");
         cameraRig.enabled = false;
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyAttacking"))
         {
@@ -73,14 +74,16 @@ public class Player : MonoBehaviour
 
             TakeDamage(1);
             Rigidbody enemyRb = other.attachedRigidbody;
-            //if (enemyRb != null)
-            //{
-            //    Vector3 pushDir = (other.transform.position - transform.position).normalized;
-            //    float pushForce = 2f;
+            if (enemyRb != null)
+            {
+                Vector3 pushDirection = (other.transform.position - transform.position);
+                pushDirection = new Vector3(pushDirection.x, 0, pushDirection.z);
+                float pushForce = 10f;
 
-            //    enemyRb.AddForce(pushDir * pushForce, ForceMode.Impulse);
-            //}
-            damageTimeout = 5;
+                enemyRb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+                other.GetComponent<NavMeshAgent>().Move(pushDirection * pushForce);
+            }
+            damageTimeout = 1;
         }
     }
 
